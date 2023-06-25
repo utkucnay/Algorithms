@@ -9,24 +9,26 @@
 #include <vector>
 #include <unordered_map>
 
+#define PRINT(x) std::cout << x.at(0) << " " << x.at(1) << std::endl;
+
 namespace SolutionTwoPointer {
     std::vector<int> twoSum(std::vector<int> nums, int target) {
         std::sort(nums.begin(), nums.end());
 
-        auto pIter = nums.begin();
-        auto nIter   = std::prev(nums.end(), 1) ;
+        auto pIter  = nums.begin();
+        auto nIter  = std::prev(nums.end(), 1) ;
 
         while(pIter < nIter)
         {
             int sum = *pIter + *nIter;
 
-            if(sum < target) std::advance(pIter, 1);
-            else if (target < sum) std::advance(nIter, -1);
+            if(sum < target)         std::advance(pIter, 1);
+            else if (target < sum)   std::advance(nIter, -1);
 
             else
             {
-                int smallIndex =    std::distance(nums.begin(), pIter);
-                int bigIndex =      std::distance(nums.begin(), nIter);
+                int smallIndex      = std::distance(nums.begin(), pIter);
+                int bigIndex        = std::distance(nums.begin(), nIter);
                 return {smallIndex, bigIndex};
             }
         }
@@ -39,8 +41,9 @@ namespace SolutionMap {
         std::unordered_map<int, int>    map;
         std::vector<int>                result = {-1, -1};
 
-        auto FindTwoSum =  [&, i = 0] (int num) mutable {
-            if(map.find(num) != map.end()){
+        auto FindTwoSum = [&, i = 0] (int num) mutable {
+            if(map.find(num) != map.end())
+            {
                 result = {map.at(num), i};
                 return true;
             }
@@ -62,11 +65,11 @@ int main()
 
     {
         auto result = SolutionTwoPointer::twoSum(nums, target);
-        std::cout << result.at(0) << " " << result.at(1) << std::endl;
+        PRINT(result)
     }
 
     {
         auto result = SolutionMap::twoSum(nums, target);
-        std::cout << result.at(0) << " " << result.at(1) << std::endl;
+        PRINT(result)
     }
 }
