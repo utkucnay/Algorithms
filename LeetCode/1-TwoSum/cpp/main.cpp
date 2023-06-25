@@ -20,7 +20,7 @@ namespace SolutionBruteForce {
 
         for(int pIndex = 0; pIndex < numsSize; pIndex++)
         {
-            for(int nIndex = pIndex; nIndex < numsSize; nIndex++)
+            for(int nIndex = pIndex + 1; nIndex < numsSize; nIndex++)
             {
                 if(nums.at(pIndex) + nums.at(nIndex) == target)
                     return {pIndex, nIndex};
