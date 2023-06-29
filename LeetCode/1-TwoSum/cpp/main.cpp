@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <experimental/bits/simd.h>
 #include <iomanip>
 #include <iostream>
 #include <iterator>
@@ -9,12 +8,11 @@
 #include <random>
 #include <vector>
 #include <unordered_map>
-#include <experimental/simd>
 
 #define PRINT(x) std::cout << x.at(0) << " " << x.at(1) << std::endl;
 
 namespace SolutionBruteForce {
-    inline std::vector<int> twoSum(std::vector<int> nums, int target)
+    std::vector<int> twoSum(std::vector<int> nums, int target)
     {
         int numsSize = nums.size();
 
@@ -32,7 +30,7 @@ namespace SolutionBruteForce {
 };
 
 namespace SolutionTwoPointer {
-    inline std::vector<int> twoSum(std::vector<int> nums, int target)
+    std::vector<int> twoSum(std::vector<int> nums, int target)
     {
         std::sort(nums.begin(), nums.end());
 
@@ -58,7 +56,7 @@ namespace SolutionTwoPointer {
 };
 
 namespace SolutionMap {
-    inline std::vector<int> twoSum(std::vector<int> nums, int target)
+    std::vector<int> twoSum(std::vector<int> nums, int target)
     {
         std::unordered_map<int, int>    map;
         std::vector<int>                result = {-1, -1};
