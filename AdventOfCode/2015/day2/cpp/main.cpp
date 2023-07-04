@@ -1,5 +1,7 @@
 #include <algorithm>
+#include <array>
 #include <fstream>
+#include <numeric>
 #include <utility>
 #include <vector>
 #include <alloca.h>
@@ -10,53 +12,32 @@
 #include <string>
 
 //part 1
-int Min(int* arr, int size)
-{
-    int min = INT_MAX;
-    for(int i = 0; i < size; i++)
-    {
-        bool isBig = min > arr[i];
-        min = arr[i] * isBig + min * !isBig;
-    }
-    return min;
-}
-
-
-int Sum(int* arr, int size)
-{
-    int sum = 0;
-    for(int i = 0; i < size; i++)
-    {
-        sum += arr[i];
-    }
-    return sum;
-}
-
 int FindRequariedBox(int l, int w, int h)
 {
-    int* arr = (int*)alloca(3 * sizeof(int));
+    std::array<int, 3> arr;
     arr[0] = l * w;
     arr[1] = w * h;
     arr[2] = h * l;
-    return 2 * Sum(arr, 3) + Min(arr, 3);
+    return 2 * std::accumulate(arr.begin(), arr.end(), 0)
+                                + *std::min_element(arr.begin(), arr.end());
 }
 
 //part2
-int SumTwoMin(int* arr, int size)
+int SumTwoMin(std::array<int, 3> arr)
 {
-    int* sums = (int*)alloca(3 * sizeof(int));
-    for(int ip = 0; ip < size; ip++)
-        for(int in = ip + 1; in < size; in++)
+    std::array<int, 3> sums;
+    for(int ip = 0; ip < arr.size(); ip++)
+        for(int in = ip + 1; in < arr.size(); in++)
         {
             sums[ip + in - 1] = arr[ip] + arr[in];
         }
-    return Min(sums, 3);
+    return *std::min_element(sums.begin(), sums.end());
 }
 
-int Product(int* arr, int size)
+int Product(std::array<int, 3> arr)
 {
     int prod = 1;
-    for(int i = 0; i < size; i++)
+    for(int i = 0; i < arr.size(); i++)
     {
         prod *= arr[i];
     }
@@ -65,11 +46,11 @@ int Product(int* arr, int size)
 
 int FindFeetOfRibbon(int l, int w, int h)
 {
-    int* arr = (int*)alloca(3 * sizeof(int));
+    std::array<int, 3> arr;
     arr[0] = l;
     arr[1] = w;
     arr[2] = h;
-    return 2 * SumTwoMin(arr, 3) + Product(arr, 3);
+    return 2 * SumTwoMin(arr) + Product(arr);
 }
 
 int main ()
@@ -80,7 +61,7 @@ int main ()
     long long sumRequariedBox = 0;
     long long sumFeetOfRibbon = 0;
 
-    int* inputs = (int*)alloca(3 * sizeof(int));
+    std::array<int, 3> inputs;
 
     for(std::string line; std::getline(inputfile, line);)
     {
