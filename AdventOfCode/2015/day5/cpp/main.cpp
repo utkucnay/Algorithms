@@ -41,7 +41,8 @@ bool IsContainsPairOfTwoLetters(const std::string& input)
     for(int i = 1; i < input.size(); i++)
     {
         std::string substr = input.substr(i - 1, 2);
-        if(map.find(substr) != map.end()){
+        if(map.find(substr) != map.end())
+        {
             if(i - map[substr] > 1)
                 result = true;
         }
@@ -99,7 +100,6 @@ int main()
             bool result = true;
             result *= IsContainsPairOfTwoLetters(input);
             result *= IsSameTwoLetter(input);
-            std::cout << input << ' ' << result << std::endl;
             sumOfNice += result;
         }
 
